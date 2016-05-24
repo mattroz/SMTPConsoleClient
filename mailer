@@ -22,21 +22,21 @@ except Exception as e:
 else:
 	#	get reciever and format message to acceptable view
 	receiver = raw_input('\nConnection succeeded...\n'+
-											 '\nEnter receiver email: ')
+			     '\nEnter receiver email: ')
 	message = raw_input('\nEnter the message: \n')
 	
 	message = '''From: {}
-							 	To: {}
-							 	Subject: {}
+		To: {}
+	 	Subject: {}
 								
-								{}
+		{}
 	'''.format(username, receiver, '', message).replace('\t','')	
 
 	#	some kind of switch-case (just for practise):
 	#	ask if user really want to send his message
 	statement = { 'y' : 1, 'n' : 0  }
 	answer = raw_input('\nSend this message' + 
-										 ' to %s? (y/n)\n' % receiver).lower()
+			   ' to %s? (y/n)\n' % receiver).lower()
 	if answer in statement:
 		if statement[answer]:
 			smtp.sendmail(username, [receiver], message)
