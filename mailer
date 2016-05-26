@@ -22,7 +22,6 @@ except smtplib.SMTPConnectError:
 except Exception as e:
 	print('\nUnexpected error: %s' % e)
 else:
-<<<<<<< HEAD
 	
 	#	get recievers and format message to acceptable view
 	print('\nConnection succeeded...\n'+ 
@@ -45,29 +44,12 @@ else:
 								
 								{}
 	'''.format(username, receivers, subject, message).replace('\t','')	
-=======
-	#	get reciever and format message to acceptable view
-	receiver = raw_input('\nConnection succeeded...\n'+
-			     '\nEnter receiver email: ')
-	message = raw_input('\nEnter the message: \n')
-	
-	message = '''From: {}
-		To: {}
-	 	Subject: {}
-								
-		{}
-	'''.format(username, receiver, '', message).replace('\t','')	
->>>>>>> 75548ef72b63a4ca8cf2bcf4796d0a6df40e7f17
 
 	#	some kind of switch-case (just for practise):
 	#	ask if user really want to send his message
 	statement = { 'y' : 1, 'n' : 0  }
 	answer = raw_input('\nSend this message' + 
-<<<<<<< HEAD
 										 ' to %s? (y/n)\n' % receivers).lower()
-=======
-			   ' to %s? (y/n)\n' % receiver).lower()
->>>>>>> 75548ef72b63a4ca8cf2bcf4796d0a6df40e7f17
 	if answer in statement:
 		if statement[answer]:
 			smtp.sendmail(username, receivers, message)
