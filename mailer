@@ -8,6 +8,8 @@ import getpass
 hostname = raw_input('Enter mail service: ')
 username = raw_input('Enter username: ')
 password = getpass.getpass('Password: ')
+subject = 'test'
+receivers = []
 
 #	trying to connect the chosen mail service 
 #	with provided username and password
@@ -20,26 +22,37 @@ except smtplib.SMTPConnectError:
 except Exception as e:
 	print('\nUnexpected error: %s' % e)
 else:
-	#	get reciever and format message to acceptable view
-	receiver = raw_input('\nConnection succeeded...\n'+
-											 '\nEnter receiver email: ')
+	
+	#	get recievers and format message to acceptable view
+	print('\nConnection succeeded...\n'+ 
+			  '\nEnter receiver(s) email(s) (-1 when done): ')
+	
+	#	get receivers list from user	
+	inpt = ''
+	while True:
+		inpt = raw_input()
+		if inpt == '-1':
+			break
+		else:
+			receivers.append(inpt)	
+
 	message = raw_input('\nEnter the message: \n')
 	
 	message = '''From: {}
-							 	To: {}
-							 	Subject: {}
+							To: {}
+							Subject: {}
 								
 								{}
-	'''.format(username, receiver, '', message).replace('\t','')	
+	'''.format(username, receivers, subject, message).replace('\t','')	
 
 	#	some kind of switch-case (just for practise):
 	#	ask if user really want to send his message
 	statement = { 'y' : 1, 'n' : 0  }
 	answer = raw_input('\nSend this message' + 
-										 ' to %s? (y/n)\n' % receiver).lower()
+										 ' to %s? (y/n)\n' % receivers).lower()
 	if answer in statement:
 		if statement[answer]:
-			smtp.sendmail(username, [receiver], message)
+			smtp.sendmail(username, receivers, message)
 		elif not statement[answer]:
 			print('Sending refused. Exiting...')
 	else:
